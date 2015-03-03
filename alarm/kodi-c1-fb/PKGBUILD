@@ -35,13 +35,13 @@ source=("https://github.com/Owersun/xbmc/archive/${_commit}.tar.gz"
         "git+https://github.com/mdrjr/c1_mali_libs.git"
         'kodi.service'
         'polkit.rules'
-  'kodi_permissions.conf')
+        'kodi_permissions.conf')
 
-sha256sums=('SKIP'
+sha256sums=('cb8ff7228bd84f2a8b4ddf15e707dc6c76141297480b2efcc27d1c9e9933c137'
             'SKIP'
-            'SKIP'
-            'SKIP'
-            'SKIP')
+            '79aa17b475967d97b6c72c850b638705d6feb6d995844476b65d68d33d161114'
+            '9ea592205023ba861603d74b63cdb73126c56372a366dc4cb7beb379073cbb96'
+            'ecc413a1cfd4622b79de16010c9d8d269f774ad89d2e547553e36fbd236e8593')
 
 prepare() {
   cd xbmc-${_commit}
