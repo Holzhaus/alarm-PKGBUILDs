@@ -35,20 +35,20 @@ source=("https://github.com/Owersun/xbmc/archive/${_commit}.tar.gz"
         "git+https://github.com/mdrjr/c1_mali_libs.git"
         'kodi.service'
         'polkit.rules'
-	'kodi_permissions.conf')
+  'kodi_permissions.conf')
 
 sha256sums=('SKIP'
-	    'SKIP'
             'SKIP'
-	    'SKIP'
-	    'SKIP')
+            'SKIP'
+            'SKIP'
+            'SKIP')
 
 prepare() {
   cd xbmc-${_commit}
 
   find -type f -name *.py -exec sed 's|^#!.*python$|#!/usr/bin/python2|' -i "{}" +
   sed 's|^#!.*python$|#!/usr/bin/python2|' -i tools/depends/native/rpl-native/rpl
-	sed 's/python/python2/' -i tools/Linux/kodi.sh.in
+  sed 's/python/python2/' -i tools/Linux/kodi.sh.in
 }
 
 build() {
@@ -126,10 +126,10 @@ package_kodi-c1-fb() {
   make DESTDIR="$pkgdir" install
 
   # Licenses
-	install -dm755 ${pkgdir}${_prefix}/share/licenses/${pkgname}
+  install -dm755 ${pkgdir}${_prefix}/share/licenses/${pkgname}
   for licensef in LICENSE.GPL copying.txt; do
-		mv ${pkgdir}${_prefix}/share/doc/kodi/${licensef} \
-			${pkgdir}${_prefix}/share/licenses/${pkgname}
+    mv ${pkgdir}${_prefix}/share/doc/kodi/${licensef} \
+      ${pkgdir}${_prefix}/share/licenses/${pkgname}
   done
 
 install -Dm0644 $srcdir/kodi_permissions.conf $pkgdir/etc/tmpfiles.d/kodi_permissions.conf
