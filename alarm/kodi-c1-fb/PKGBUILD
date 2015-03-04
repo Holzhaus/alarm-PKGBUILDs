@@ -1,4 +1,5 @@
-# Maintainer: Kevin Mihelich <kevin@archlinuxarm.org>
+# Maintainer: Apokalypzx <apokalypzx at gmail dot com>
+# Contributor: Kevin Mihelich <kevin@archlinuxarm.org>
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 # Contributor: BlackIkeEagle < ike DOT devolder AT gmail DOT com >
 # Contributor: Brad Fanella <bradfanella@archlinux.us>
@@ -7,6 +8,7 @@
 # Contributor: BlackIkeEagle < ike DOT devolder AT gmail DOT com >
 # Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 # Contributor: Maxime Gauduin <alucryd@gmail.com>
+# contributor: Owersun <shiva at maill dot ru>
 
 buildarch=4
 
@@ -15,9 +17,9 @@ _prefix=/usr
 pkgbase=kodi-c1
 pkgname=('kodi-c1-fb' 'kodi-c1-eventclients-fb')
 _commit=765bc88fd8a7015b1424fa898849bb1a70211b74
-pkgver=14.0
+pkgver=14.20150217
 _codename=Helix
-pkgrel=6
+pkgrel=0
 arch=('armv7h')
 url="http://kodi.tv"
 license=('GPL2')
@@ -81,8 +83,9 @@ build() {
     --enable-gles \
     --disable-gl \
     --disable-openmax \
-    --disable-vdpau
- 
+    --disable-vdpau \
+    --disable-pulse
+
  # Now (finally) build
   make
 }
