@@ -9,17 +9,19 @@
 # Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 # Contributor: Maxime Gauduin <alucryd@gmail.com>
 # Contributor: Owersun <shiva at maill dot ru> 
+# Contributor: Holzhaus <holthuis dot jan at googlemail dot com>
+# Contributor: Mdrjr <mauro dot ribeiro at hardkernel dot com>
 
 buildarch=4
 
 _prefix=/usr
 
-pkgbase=kodi-c1
+pkgbase=kodi-c1-fb
 pkgname=('kodi-c1-fb' 'kodi-c1-eventclients-fb')
-_commit=765bc88fd8a7015b1424fa898849bb1a70211b74
-pkgver=14.20150217
-_codename=Helix
+_commit=bd5505a1bf162d15b31f67584bfeef3d5b30b1a1
+pkgver=15.0.20150304
 pkgrel=1
+_codename=unknown
 arch=('armv7h')
 url="http://kodi.tv"
 license=('GPL2')
@@ -31,23 +33,25 @@ makedepends=(
     'libxrandr' 'libxslt' 'lzo' 'nasm' 'nss-mdns' 'python2-pillow' 'aml-libs-c1' 
     'python2-pybluez' 'python2-simplejson' 'rtmpdump' 'sdl2' 'sdl_image' 
     'shairplay' 'smbclient' 'swig' 'taglib' 'tinyxml' 'unzip' 'upower' 'yajl' 
-    'zip' 
+    'zip'
 )
-source=("https://github.com/Owersun/xbmc/archive/${_commit}.tar.gz"
+source=("https://github.com/mdrjr/xbmc/archive/${_commit}.tar.gz"
         "git+https://github.com/mdrjr/c1_mali_libs.git"
         'kodi.service'
         'polkit.rules'
-        'kodi_permissions.conf')
+        'kodi_permissions.conf'
+        'owersun-c1.patch')
 
-sha256sums=('cb8ff7228bd84f2a8b4ddf15e707dc6c76141297480b2efcc27d1c9e9933c137'
+sha256sums=('f7916ec6da57d6c17fb6b64619b6d820d230c79221c5656089626bfe44762d5c'
             'SKIP'
             '79aa17b475967d97b6c72c850b638705d6feb6d995844476b65d68d33d161114'
             '9ea592205023ba861603d74b63cdb73126c56372a366dc4cb7beb379073cbb96'
-            'ecc413a1cfd4622b79de16010c9d8d269f774ad89d2e547553e36fbd236e8593')
+            'ecc413a1cfd4622b79de16010c9d8d269f774ad89d2e547553e36fbd236e8593'
+            'cfb4c328508062a433847b47d840cb10074bd4faf75371d93a583d86cd98957d')
 
 prepare() {
   cd xbmc-${_commit}
-
+  patch -p1 -i ../owersun-c1.patch
   find -type f -name *.py -exec sed 's|^#!.*python$|#!/usr/bin/python2|' -i "{}" +
   sed 's|^#!.*python$|#!/usr/bin/python2|' -i tools/depends/native/rpl-native/rpl
   sed 's/python/python2/' -i tools/Linux/kodi.sh.in
@@ -86,7 +90,8 @@ build() {
     --disable-vdpau
 
  # Now (finally) build
-  make
+#  make
+make -k > build.log 2>&1
 }
 
 package_kodi-c1-fb() {
