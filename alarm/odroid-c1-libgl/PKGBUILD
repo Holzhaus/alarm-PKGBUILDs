@@ -6,11 +6,11 @@ buildarch=4
 
 pkgbase=odroid-c1-libgl
 pkgname=("${pkgbase}-x11" "${pkgbase}-fb")
-pkgver=r4p0
-pkgrel=3
+pkgver=r5p0
+pkgrel=1
 pkgdesc="Arm Mali proprietary GPU drivers for the odroid C1"
 
-#Filesystem prefit for the libs, include files, and licence
+#Filesystem prefix for the libs, include files, and license
 _install_prefix=/opt/arm
 
 arch=('armv7h')
