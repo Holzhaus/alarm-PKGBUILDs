@@ -46,7 +46,7 @@ source=("https://github.com/mdrjr/xbmc/archive/${_commit}.tar.gz"
 sha256sums=('f7916ec6da57d6c17fb6b64619b6d820d230c79221c5656089626bfe44762d5c'
             'SKIP'
             '79aa17b475967d97b6c72c850b638705d6feb6d995844476b65d68d33d161114'
-            '9ea592205023ba861603d74b63cdb73126c56372a366dc4cb7beb379073cbb96'
+            'c68ed2bd377f80b606b8815d78239b9132b479eafc1d19797cee5824debe1800'
             'ecc413a1cfd4622b79de16010c9d8d269f774ad89d2e547553e36fbd236e8593'
             'cfb4c328508062a433847b47d840cb10074bd4faf75371d93a583d86cd98957d'
             'e3cb9a3a3d814295bdfac6ac325b5560e8ba0a2fb00f11d6dcc9afde49f30990')
@@ -123,6 +123,7 @@ package_kodi-c1-fb() {
     'unrar: Archives support'
     'unzip: Archives support'
     'upower: Display battery level'
+    'polkit: Power menu functionality.'
     'lsb-release: log distro information in crashlog'
   )
   install="kodi.install"
@@ -144,8 +145,7 @@ package_kodi-c1-fb() {
 install -Dm0644 $srcdir/20-quiet-printk.conf $pkgdir/etc/sysctl.d/20-quiet-printk.conf
 install -Dm0644 $srcdir/kodi_permissions.conf $pkgdir/etc/tmpfiles.d/kodi_permissions.conf
 install -Dm0644 $srcdir/kodi.service $pkgdir/usr/lib/systemd/system/kodi.service
-install -Dm0644 $srcdir/polkit.rules $pkgdir/usr/share/polkit-1/rules.d/10-kodi.rules
-chmod 0700 $pkgdir/usr/share/polkit-1/rules.d/
+install -Dm0644 $srcdir/polkit.rules $pkgdir/etc/polkit-1/rules.d/10-kodi.rules
 }
 
 package_kodi-c1-eventclients-fb() {
