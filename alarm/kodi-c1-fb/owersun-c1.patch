@@ -1,7 +1,15 @@
 diff -rupN xbmc/xbmc/windowing/egl/EGLNativeTypeAmlogic.cpp xbmc-new/xbmc/windowing/egl/EGLNativeTypeAmlogic.cpp
 --- xbmc/xbmc/windowing/egl/EGLNativeTypeAmlogic.cpp	2015-03-04 14:05:54.000000000 -0800
-+++ xbmc-new/xbmc/windowing/egl/EGLNativeTypeAmlogic.cpp	2015-03-08 19:30:46.720026864 -0700
-@@ -87,9 +87,11 @@ bool CEGLNativeTypeAmlogic::CreateNative
++++ xbmc-new/xbmc/windowing/egl/EGLNativeTypeAmlogic.cpp	2015-04-04 13:23:11.070074697 -0700
+@@ -26,6 +26,7 @@
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <fstream>
+ #include <linux/fb.h>
+ #include <sys/ioctl.h>
+ #include <EGL/egl.h>
+@@ -87,9 +88,11 @@ bool CEGLNativeTypeAmlogic::CreateNative
    fbdev_window *nativeWindow = new fbdev_window;
    if (!nativeWindow)
      return false;
@@ -15,7 +23,7 @@ diff -rupN xbmc/xbmc/windowing/egl/EGLNativeTypeAmlogic.cpp xbmc-new/xbmc/window
    m_nativeWindow = nativeWindow;
    return true;
  #else
-@@ -137,11 +139,10 @@ bool CEGLNativeTypeAmlogic::SetNativeRes
+@@ -137,11 +140,10 @@ bool CEGLNativeTypeAmlogic::SetNativeRes
  {
    switch((int)(0.5 + res.fRefreshRate))
    {
@@ -28,7 +36,7 @@ diff -rupN xbmc/xbmc/windowing/egl/EGLNativeTypeAmlogic.cpp xbmc-new/xbmc/window
          case 1280:
            SetDisplayResolution("720p");
            break;
-@@ -153,10 +154,10 @@ bool CEGLNativeTypeAmlogic::SetNativeRes
+@@ -153,10 +155,10 @@ bool CEGLNativeTypeAmlogic::SetNativeRes
            break;
        }
        break;
@@ -40,7 +48,7 @@ diff -rupN xbmc/xbmc/windowing/egl/EGLNativeTypeAmlogic.cpp xbmc-new/xbmc/window
          case 1280:
            SetDisplayResolution("720p50hz");
            break;
-@@ -168,13 +169,27 @@ bool CEGLNativeTypeAmlogic::SetNativeRes
+@@ -168,13 +170,27 @@ bool CEGLNativeTypeAmlogic::SetNativeRes
            break;
        }
        break;
@@ -71,13 +79,21 @@ diff -rupN xbmc/xbmc/windowing/egl/EGLNativeTypeAmlogic.cpp xbmc-new/xbmc/window
  
    return true;
  }
-@@ -183,7 +198,20 @@ bool CEGLNativeTypeAmlogic::ProbeResolut
+@@ -183,7 +199,29 @@ bool CEGLNativeTypeAmlogic::ProbeResolut
  {
    std::string valstr;
    SysfsUtils::GetString("/sys/class/amhdmitx/amhdmitx0/disp_cap", valstr);
 -  std::vector<std::string> probe_str = StringUtils::Split(valstr, "\n");
 +  std::vector<std::string> probe_str;
-+
++  std::string resentry;
++  std::ifstream resfile ("/etc/kodi-resolutions.conf");
++  if (resfile.is_open()) {
++    while (getline(resfile,resentry)) {
++      if (!resentry.empty()) {
++        probe_str.push_back(resentry);
++      }
++    }
++  } else { //Explicitly add resolutions if file read fails.
 +  //NTFS Resolutions
 +  //Disable for PAL displays!
 +  probe_str.push_back("720p");
@@ -90,10 +106,11 @@ diff -rupN xbmc/xbmc/windowing/egl/EGLNativeTypeAmlogic.cpp xbmc-new/xbmc/window
 +  //probe_str.push_back("720p50hz");
 +  //probe_str.push_back("1080p50hz");
 +  //probe_str.push_back("1080i50hz");
++  }
  
    resolutions.clear();
    RESOLUTION_INFO res;
-@@ -220,7 +248,7 @@ bool CEGLNativeTypeAmlogic::SetDisplayRe
+@@ -220,7 +258,7 @@ bool CEGLNativeTypeAmlogic::SetDisplayRe
    std::string mode = resolution;
    // switch display resolution
    SysfsUtils::SetString("/sys/class/display/mode", mode.c_str());
@@ -102,7 +119,7 @@ diff -rupN xbmc/xbmc/windowing/egl/EGLNativeTypeAmlogic.cpp xbmc-new/xbmc/window
  
    return true;
  }
-@@ -282,26 +310,34 @@ void CEGLNativeTypeAmlogic::DisableFreeS
+@@ -282,26 +320,34 @@ void CEGLNativeTypeAmlogic::DisableFreeS
    // turn off frame buffer freescale
    SysfsUtils::SetInt("/sys/class/graphics/fb0/free_scale", 0);
    SysfsUtils::SetInt("/sys/class/graphics/fb1/free_scale", 0);
