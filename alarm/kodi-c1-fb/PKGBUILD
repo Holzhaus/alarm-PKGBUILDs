@@ -20,7 +20,7 @@ pkgbase=kodi-c1-fb
 pkgname=('kodi-c1-fb' 'kodi-c1-eventclients-fb')
 _commit=bd5505a1bf162d15b31f67584bfeef3d5b30b1a1
 pkgver=15.0.20150304
-pkgrel=2
+pkgrel=3
 _codename=unknown
 arch=('armv7h')
 url="http://kodi.tv"
@@ -40,7 +40,7 @@ source=("https://github.com/mdrjr/xbmc/archive/${_commit}.tar.gz"
         'kodi.service'
         'polkit.rules'
         'kodi_permissions.conf'
-        'owersun-c1.patch'
+        'KODI_Amlogic_EGL_Resolutions.patch'
 	'20-quiet-printk.conf'
 	'kodi-resolutions.conf')
 
@@ -49,13 +49,13 @@ sha256sums=('f7916ec6da57d6c17fb6b64619b6d820d230c79221c5656089626bfe44762d5c'
             '79aa17b475967d97b6c72c850b638705d6feb6d995844476b65d68d33d161114'
             'c68ed2bd377f80b606b8815d78239b9132b479eafc1d19797cee5824debe1800'
             'ecc413a1cfd4622b79de16010c9d8d269f774ad89d2e547553e36fbd236e8593'
-            '69972175b14ea42e9cbc3b2f66a2b8d8a74e2f1d618c7ff3afc37424c3df56e1'
+            '72b4404970c377f9b7c353d0aebdf0bc8c5833e7b1b99f65a4c459a98130cf85'
             'e3cb9a3a3d814295bdfac6ac325b5560e8ba0a2fb00f11d6dcc9afde49f30990'
             'b91b2ce2c20f6468d911d40a6d2c0bc6e2db07bd4101e914f9ba831c8e7866b4')
 
 prepare() {
   cd xbmc-${_commit}
-  patch -p1 -i ../owersun-c1.patch
+  patch -p1 -i ../KODI_Amlogic_EGL_Resolutions.patch
   find -type f -name *.py -exec sed 's|^#!.*python$|#!/usr/bin/python2|' -i "{}" +
   sed 's|^#!.*python$|#!/usr/bin/python2|' -i tools/depends/native/rpl-native/rpl
   sed 's/python/python2/' -i tools/Linux/kodi.sh.in
