@@ -20,7 +20,7 @@ pkgbase=kodi-c1-fb
 pkgname=('kodi-c1-fb' 'kodi-c1-eventclients-fb')
 _commit=bd5505a1bf162d15b31f67584bfeef3d5b30b1a1
 pkgver=15.0.20150304
-pkgrel=3
+pkgrel=4
 _codename=unknown
 arch=('armv7h')
 url="http://kodi.tv"
@@ -51,7 +51,7 @@ sha256sums=('f7916ec6da57d6c17fb6b64619b6d820d230c79221c5656089626bfe44762d5c'
             'ecc413a1cfd4622b79de16010c9d8d269f774ad89d2e547553e36fbd236e8593'
             '72b4404970c377f9b7c353d0aebdf0bc8c5833e7b1b99f65a4c459a98130cf85'
             'e3cb9a3a3d814295bdfac6ac325b5560e8ba0a2fb00f11d6dcc9afde49f30990'
-            'b91b2ce2c20f6468d911d40a6d2c0bc6e2db07bd4101e914f9ba831c8e7866b4')
+            'f5c14418369d0ec3df5a4f6ec525beddc720f83895303d1514b193e7386d62c0')
 
 prepare() {
   cd xbmc-${_commit}
@@ -91,7 +91,8 @@ build() {
     --enable-gles \
     --disable-gl \
     --disable-openmax \
-    --disable-vdpau
+    --disable-vdpau \
+    --disable-pulse
 
  # Now (finally) build
 #  make
