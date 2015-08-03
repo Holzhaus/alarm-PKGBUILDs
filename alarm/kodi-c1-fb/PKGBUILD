@@ -40,16 +40,14 @@ source=("https://github.com/Owersun/xbmc/archive/${_commit}.tar.gz"
         'kodi.service'
         'polkit.rules'
         'kodi_permissions.conf'
-	'20-quiet-printk.conf'
-	'kodi-resolutions.conf')
+	'20-quiet-printk.conf')
 
 sha256sums=('156d89e8e3949e4c5bf602297efa11b619377e3e90a7a01884c672a518776882'
             'SKIP'
             '79aa17b475967d97b6c72c850b638705d6feb6d995844476b65d68d33d161114'
             'c68ed2bd377f80b606b8815d78239b9132b479eafc1d19797cee5824debe1800'
             'ecc413a1cfd4622b79de16010c9d8d269f774ad89d2e547553e36fbd236e8593'
-            'e3cb9a3a3d814295bdfac6ac325b5560e8ba0a2fb00f11d6dcc9afde49f30990'
-            'f5c14418369d0ec3df5a4f6ec525beddc720f83895303d1514b193e7386d62c0')
+            'e3cb9a3a3d814295bdfac6ac325b5560e8ba0a2fb00f11d6dcc9afde49f30990')
 
 prepare() {
   cd xbmc-${_commit}
@@ -146,7 +144,6 @@ install -Dm0644 $srcdir/20-quiet-printk.conf $pkgdir/etc/sysctl.d/20-quiet-print
 install -Dm0644 $srcdir/kodi_permissions.conf $pkgdir/etc/tmpfiles.d/kodi_permissions.conf
 install -Dm0644 $srcdir/kodi.service $pkgdir/usr/lib/systemd/system/kodi.service
 install -Dm0644 $srcdir/polkit.rules $pkgdir/etc/polkit-1/rules.d/10-kodi.rules
-install -Dm0644 $srcdir/kodi-resolutions.conf $pkgdir/etc/kodi-resolutions.conf
 }
 
 package_kodi-c1-eventclients-fb() {
