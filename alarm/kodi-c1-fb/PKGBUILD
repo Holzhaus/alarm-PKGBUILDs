@@ -18,8 +18,8 @@ _prefix=/usr
 
 pkgbase=kodi-c1-fb
 pkgname=('kodi-c1-fb' 'kodi-c1-eventclients-fb')
-_commit=cc29e56c7361fd8f3cad7e6703e77e02a6430d22
-pkgver=15.0.20150803
+_commit=1f1fbec4c712f6c77e7923745ea851f84620e23e
+pkgver=15.0.20150810
 pkgrel=1
 _codename=unknown
 arch=('armv7h')
@@ -42,7 +42,7 @@ source=("https://github.com/Owersun/xbmc/archive/${_commit}.tar.gz"
         'kodi_permissions.conf'
 	'20-quiet-printk.conf')
 
-sha256sums=('156d89e8e3949e4c5bf602297efa11b619377e3e90a7a01884c672a518776882'
+sha256sums=('c044b1bac761a87b21b21b58ea7270c0c745ae082b8b184a9253e7f1d18f047c'
             'SKIP'
             '79aa17b475967d97b6c72c850b638705d6feb6d995844476b65d68d33d161114'
             'c68ed2bd377f80b606b8815d78239b9132b479eafc1d19797cee5824debe1800'
