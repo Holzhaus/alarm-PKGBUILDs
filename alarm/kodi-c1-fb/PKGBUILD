@@ -18,15 +18,15 @@ _prefix=/usr
 
 pkgbase=kodi-c1-fb
 pkgname=('kodi-c1-fb' 'kodi-c1-eventclients-fb')
-_commit=b00d3a6f7baed1b6c2a5569dd3c2cddc5f25effc
-pkgver=15.2.20150911
+_commit=3a59f4b03708451273668022f415123522f634fd
+pkgver=15.2.20151030
 pkgrel=1
 _codename=unknown
 arch=('armv7h')
 url="http://kodi.tv"
 license=('GPL2')
 makedepends=(
-    'afpfs-ng' 'bluez-libs' 'boost' 'cmake' 'curl' 'cwiid' 'doxygen' 'git' 'glew' 
+    'afpfs-ng' 'bluez-libs' 'boost' 'cmake' 'curl' 'cwiid' 'doxygen' 'gcc<5.2.0' 'gcc-libs<5.2.0' 'git' 'glew' 
     'gperf' 'hicolor-icon-theme' 'jasper' 'java-runtime' 'libaacs' 'libass' 
     'libbluray' 'libcdio' 'odroid-c1-libgl-fb' 'libmariadbclient' 'libmicrohttpd' 
     'libmodplug' 'libmpeg2' 'libnfs' 'libplist' 'libpulse' 'libssh' 'libva' 
@@ -40,9 +40,9 @@ source=("https://github.com/Owersun/xbmc/archive/${_commit}.tar.gz"
         'kodi.service'
         'polkit.rules'
         'kodi_permissions.conf'
-	'20-quiet-printk.conf')
+        '20-quiet-printk.conf')
 
-sha256sums=('d9aaa35cf9561d62677083f281b2e482c787e2e9052403d03ba4ce358ae12b1a'
+sha256sums=('96200ef955a65f9fa87a66b27b4374a2badd89d9a1d20c02f6fdca760f35a3ca'
             'SKIP'
             '79aa17b475967d97b6c72c850b638705d6feb6d995844476b65d68d33d161114'
             'c68ed2bd377f80b606b8815d78239b9132b479eafc1d19797cee5824debe1800'
