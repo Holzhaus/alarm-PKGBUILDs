@@ -18,8 +18,8 @@ _prefix=/usr
 
 pkgbase=kodi-c1-fb
 pkgname=('kodi-c1-fb' 'kodi-c1-eventclients-fb')
-_commit=3a59f4b03708451273668022f415123522f634fd
-pkgver=15.2.20151030
+_commit=687753486ac9fd8b8ec23d3bbd27a65ceacb8266
+pkgver=16.0.20151115
 pkgrel=1
 _codename=unknown
 arch=('armv7h')
@@ -35,8 +35,9 @@ makedepends=(
     'shairplay' 'smbclient' 'swig' 'taglib' 'tinyxml' 'unzip' 'upower' 'yajl' 
     'zip'
 )
-source=("https://github.com/Owersun/xbmc/archive/${_commit}.tar.gz"
+source=("https://github.com/xbmc/xbmc/archive/${_commit}.tar.gz"
         "git+https://github.com/mdrjr/c1_mali_libs.git"
+        'odroid-platform.patch'
         'kodi.service'
         'polkit.rules'
         'kodi_permissions.conf'
@@ -44,6 +45,7 @@ source=("https://github.com/Owersun/xbmc/archive/${_commit}.tar.gz"
 
 sha256sums=('96200ef955a65f9fa87a66b27b4374a2badd89d9a1d20c02f6fdca760f35a3ca'
             'SKIP'
+            'f96d575646469db9ad795da928cc464d42dc38f2d584c7c19c7e6bae33f4f3ad'
             '79aa17b475967d97b6c72c850b638705d6feb6d995844476b65d68d33d161114'
             'c68ed2bd377f80b606b8815d78239b9132b479eafc1d19797cee5824debe1800'
             'ecc413a1cfd4622b79de16010c9d8d269f774ad89d2e547553e36fbd236e8593'
@@ -51,6 +53,11 @@ sha256sums=('96200ef955a65f9fa87a66b27b4374a2badd89d9a1d20c02f6fdca760f35a3ca'
 
 prepare() {
   cd xbmc-${_commit}
+
+  # Add ODROID platform
+  patch -p0 < "${srcdir}/odroid-platform.patch"
+
+  # Use Python 2 instead of Python 3
   find -type f -name *.py -exec sed 's|^#!.*python$|#!/usr/bin/python2|' -i "{}" +
   sed 's|^#!.*python$|#!/usr/bin/python2|' -i tools/depends/native/rpl-native/rpl
   sed 's/python/python2/' -i tools/Linux/kodi.sh.in
